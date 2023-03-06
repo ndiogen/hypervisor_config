@@ -1,0 +1,148 @@
+<domain type='kvm'>
+    <name>seat_a_swaped</name>
+    <memory unit='GB'>15</memory>
+    <iothreads>2</iothreads>
+    <vcpu placement='static'>12</vcpu>
+    <cputune>
+        <vcpupin vcpu='0' cpuset='2'/>
+        <vcpupin vcpu='1' cpuset='14'/>
+        <vcpupin vcpu='2' cpuset='3'/>
+        <vcpupin vcpu='3' cpuset='15'/>
+        <vcpupin vcpu='4' cpuset='4'/>
+        <vcpupin vcpu='5' cpuset='16'/>
+        <vcpupin vcpu='6' cpuset='5'/>
+        <vcpupin vcpu='7' cpuset='17'/>
+        <vcpupin vcpu='8' cpuset='1'/>
+        <vcpupin vcpu='9' cpuset='13'/>
+        <vcpupin vcpu='10' cpuset='0'/>
+        <vcpupin vcpu='11' cpuset='12'/>
+        <emulatorpin cpuset='1,13'/>
+        <iothreadpin iothread='1' cpuset='1,13'/>
+        <iothreadpin iothread='2' cpuset='8,12'/>
+    </cputune>
+    <cpu mode='host-passthrough' check='none'>
+        <topology sockets='1' cores='6' threads='2'/>
+        <feature policy='require' name='topoext'/>
+    </cpu>
+    <os>
+        <type arch='x86_64' machine='q35'>hvm</type>
+        <loader readonly='yes' secure='no' type='pflash'>/home/ndiogen/vm_data/ovmf/OVMF_CODE.fd</loader>
+        <nvram>/home/ndiogen/vm_data/seat_b/OVMF_VARS.fd</nvram>
+        <bootmenu enable='yes' timeout='3000'/>
+        <smbios mode='emulate'/>
+    </os>
+    <features>
+        <acpi/>
+        <ioapic driver='kvm'/>
+        <hyperv>
+            <relaxed state='on'/>
+            <vapic state='on'/>
+            <spinlocks state='on' retries='8191'/>
+            <vpindex state='on'/>
+            <synic state='on'/>
+            <stimer state='on'/>
+            <reset state='on'/>
+        </hyperv>
+    </features>
+    <clock>
+        <timer name='hpet' present='no'/>
+        <timer name='hypervclock' present='yes'/>
+    </clock>
+    <kvm>
+        <hidden state='on'/>
+    </kvm>
+    <memoryBacking>
+        <hugepages/>
+    </memoryBacking>
+    <devices>
+        <!-- Drives -->
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+            </source>
+            <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+        </hostdev>
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
+            </source>
+            <address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+        </hostdev>
+
+        <!-- Passthrough GPU -->
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
+            </source>
+            <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
+        </hostdev>
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x05' slot='0x00' function='0x1'/>
+            </source>
+            <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x1'/>
+        </hostdev>
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x05' slot='0x00' function='0x2'/>
+            </source>
+            <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x2'/>
+        </hostdev>
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x05' slot='0x00' function='0x3'/>
+            </source>
+            <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x3'/>
+        </hostdev>
+
+        <!-- Passthrough sound card -->
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x06' slot='0x00' function='0x0'/>
+            </source>
+        </hostdev>
+
+        <!-- Passthrough USB controller -->
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x08' slot='0x00' function='0x1'/>
+            </source>
+        </hostdev>
+        <hostdev mode='subsystem' type='pci' managed='yes'>
+            <source>
+                <address domain='0x0000' bus='0x08' slot='0x00' function='0x3'/>
+            </source>
+        </hostdev>
+
+        <!-- Passthrough network controller-->
+        <interface type='network'>
+            <source network='default'/>
+            <model type='virtio'/>
+            <driver queues='4'/>
+        </interface>
+
+        <!-- Take instalation drive -->
+        <!--
+        <disk type='file' device='cdrom'>
+            <driver name='qemu' type='raw'/>
+            <source file='/home/ndiogen/ISO/virtio-win-0.1.229.iso'/>
+            <target dev='hdc' bus='sata'/>
+            <readonly/>
+        </disk>
+        -->
+        <!--
+        <disk type='file' device='cdrom'>
+            <driver name='qemu' type='raw'/>
+            <source file='/home/ndiogen/ISO/Win11_22H2_English_x64v1.iso'/>
+            <target dev='hdd' bus='sata'/>
+            <readonly/>
+        </disk>
+        -->
+        <disk type='file' device='cdrom'>
+            <driver name='qemu' type='raw'/>
+            <source file='/home/ndiogen/ISO/archlinux-2023.02.01-x86_64.iso'/>
+            <target dev='hdd' bus='sata'/>
+            <readonly/>
+        </disk>
+    </devices>
+</domain>
