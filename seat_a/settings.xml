@@ -27,8 +27,7 @@
     <os>
         <type arch='x86_64' machine='q35'>hvm</type>
         <loader readonly='yes' secure='no' type='pflash'>/home/ndiogen/vm_data/ovmf/OVMF_CODE.fd</loader>
-        <nvram>/home/ndiogen/vm_data/seat_b/OVMF_VARS.fd</nvram>
-        <bootmenu enable='yes' timeout='3000'/>
+        <nvram>/home/ndiogen/vm_data/seat_a/OVMF_VARS.fd</nvram>
         <smbios mode='emulate'/>
     </os>
     <features>
@@ -61,12 +60,14 @@
                 <address domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
             </source>
             <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+            <boot order='1'/>
         </hostdev>
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
                 <address domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
             </source>
             <address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+            <boot order='2'/>
         </hostdev>
 
         <!-- Passthrough GPU -->

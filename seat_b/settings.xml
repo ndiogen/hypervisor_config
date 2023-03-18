@@ -53,6 +53,14 @@
     <memoryBacking>
         <hugepages/>
     </memoryBacking>
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>restart</on_crash>
+    <on_lockfailure>poweroff</on_lockfailure>
+    <pm>
+        <suspend-to-disk enabled='no'/>
+        <suspend-to-mem enabled='no'/>
+    </pm>
     <devices>
         <!-- Drives -->
         <controller type='scsi' model='virtio-scsi' index='0'>

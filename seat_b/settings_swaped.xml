@@ -1,5 +1,5 @@
 <domain type='kvm'>
-    <name>seat_b_swapped</name>
+    <name>seat_b</name>
     <memory unit='GB'>15</memory>
     <iothreads>2</iothreads>
     <vcpu placement='static'>12</vcpu>
@@ -53,6 +53,14 @@
     <memoryBacking>
         <hugepages/>
     </memoryBacking>
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>restart</on_crash>
+    <on_lockfailure>poweroff</on_lockfailure>
+    <pm>
+        <suspend-to-disk enabled='no'/>
+        <suspend-to-mem enabled='no'/>
+    </pm>
     <devices>
         <!-- Drives -->
         <controller type='scsi' model='virtio-scsi' index='0'>
@@ -76,25 +84,25 @@
         <!-- Passthrough GPU -->
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='0x0'/>
             </source>
             <address type='pci' domain='0x0000' bus='0x0b' slot='0x00' function='0x0'/>
         </hostdev>
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='0x1'/>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='0x1'/>
             </source>
             <address type='pci' domain='0x0000' bus='0x0b' slot='0x00' function='0x1'/>
         </hostdev>
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='0x2'/>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='0x2'/>
             </source>
             <address type='pci' domain='0x0000' bus='0x0b' slot='0x00' function='0x2'/>
         </hostdev>
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='0x3'/>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='0x3'/>
             </source>
             <address type='pci' domain='0x0000' bus='0x0b' slot='0x00' function='0x3'/>
         </hostdev>
@@ -102,14 +110,14 @@
         <!-- Passthrough sound card -->
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
-                <address domain='0x0000' bus='0x0d' slot='0x00' function='0x4'/>
+                <address domain='0x0000' bus='0x0e' slot='0x00' function='0x4'/>
             </source>
         </hostdev>
 
         <!-- Passthrough USB controller -->
         <hostdev mode='subsystem' type='pci' managed='yes'>
             <source>
-                <address domain='0x0000' bus='0x0d' slot='0x00' function='0x3'/>
+                <address domain='0x0000' bus='0x0e' slot='0x00' function='0x3'/>
             </source>
         </hostdev>
 
@@ -121,14 +129,12 @@
         </interface>
 
         <!-- Take instalation drive -->
-        <!--
         <disk type='file' device='cdrom'>
             <driver name='qemu' type='raw'/>
             <source file='/home/ndiogen/ISO/virtio-win-0.1.229.iso'/>
             <target dev='hdc' bus='sata'/>
             <readonly/>
         </disk>
-        -->
         <!--
         <disk type='file' device='cdrom'>
             <driver name='qemu' type='raw'/>
@@ -137,13 +143,11 @@
             <readonly/>
         </disk>
         -->
-        <!--
         <disk type='file' device='cdrom'>
             <driver name='qemu' type='raw'/>
             <source file='/home/ndiogen/ISO/archlinux-2023.02.01-x86_64.iso'/>
             <target dev='hdd' bus='sata'/>
             <readonly/>
         </disk>
-        -->
     </devices>
 </domain>
